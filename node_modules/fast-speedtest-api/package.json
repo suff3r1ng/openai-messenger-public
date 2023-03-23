@@ -1,0 +1,48 @@
+{
+  "name": "fast-speedtest-api",
+  "version": "0.3.2",
+  "description": "A speed test powered by fast.com",
+  "main": "./src/Api.js",
+  "engines": {
+    "node": ">=7.10.1"
+  },
+  "scripts": {
+    "test": "mocha",
+    "release": "release-it"
+  },
+  "bin": {
+    "fast-speedtest": "./src/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/branchard/fast-speedtest-api.git"
+  },
+  "author": "branchard",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/branchard/fast-speedtest-api/issues"
+  },
+  "homepage": "https://github.com/branchard/fast-speedtest-api#readme",
+  "keywords": [
+    "speedtest",
+    "speed",
+    "network",
+    "test",
+    "fast",
+    "bandwidth",
+    "kbps",
+    "mbps",
+    "fast.com",
+    "netflix",
+    "api",
+    "cli"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "mocha": "^5.2.0",
+    "release-it": "^9.8.1"
+  }
+}

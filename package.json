@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "exec": "^0.2.1",
+    "facebook-chat-api": "github:Schmavery/facebook-chat-api",
+    "fast-speedtest-api": "^0.3.2",
+    "fb-chat-api": "github:ntkhang03/fb-chat-api",
+    "nodemon": "^2.0.20",
+    "openai": "^3.1.0",
+    "pngjs": "^7.0.0",
+    "process": "^0.11.10"
+  },
+  "name": "facebook-openai",
+  "description": "Hello, this is my project for this time I'm making a Facebook bot with OpenAi inside it, this is a simple coding and maybe not so neat inside.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node execute.js",
+    "dev": "nodemon execute.js"
+  },
+  "author": "suff3r1ng",
+  "license": "GNU"
+}
