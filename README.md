@@ -19,9 +19,10 @@ No need to install modules, required modules are already installed.
 <br>
 Get your fb login cookie and paste it inside session.json
 
-`git clone https://github.com/suff3r1ng/messenger-openai.git`
+`git clone -b master https://github.com/suff3r1ng/openai-messenger-public.git`
 <br>
-`cd messenger-openai`
+`cd openai-messenger-public`
+Paste your api keys & fb state.
 <br>
 `node execute.js`
 <br>
@@ -37,7 +38,8 @@ Functions:<br>
 `/ai 'YOUR QUESTION'- Ask the AI gpt-3.5-turbo-0301  `<br>
 `/stop - Stop`<br>
 `/continue - continue the ai`<br>
-
+`/mp3 - downloads and sends mp3.`<br>
+`/define - defines a word.`<br>
 ## Changelogs:
 
 Added weather.<br>
