@@ -10,7 +10,7 @@
     "process": "^0.11.10"
   },
   "name": "facebook-openai",
-  "description": "Hello, this is my project for this time I'm making a Facebook bot with OpenAi inside it, this is a simple coding and maybe not so neat inside.",
+  "description": "Greetings, I am pleased to present my current project, a Facebook bot powered with OpenAI technology. While the coding may not be as neat, it serves as a starting point in this endeavor. I am excited to continue developing and learning more from this project. Thank you.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
