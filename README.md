@@ -22,7 +22,7 @@ Get your fb login cookie and paste it inside session.json
 `git clone -b master https://github.com/suff3r1ng/openai-messenger-public.git`
 <br>
 `cd openai-messenger-public`<br>
-Paste your api keys & fb state.
+
 <br>
 `node execute.js`
 <br>
