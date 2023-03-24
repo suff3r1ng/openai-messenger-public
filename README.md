@@ -40,7 +40,7 @@ Functions:<br>
 `/continue - continue the ai`<br>
 `/mp3 - downloads and sends mp3.`<br>
 `/define - defines a word.`<br>
- `imgSearch - search image from google`
+ `/imgSearch - search image from google`
 ## Changelogs:
 
 Added weather.<br>
