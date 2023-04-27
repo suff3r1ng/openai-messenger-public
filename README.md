@@ -40,12 +40,19 @@ Functions:<br>
 `/continue - continue the ai`<br>
 `/mp3 - downloads and sends mp3.`<br>
 `/define - defines a word.`<br>
+
 ## Changelogs:
 
 Added weather.<br>
 Added image generator.<br>
 Updated to model gpt-3.5-turbo-0301.<br>
 Added /define & /mp3 <br>
+Added Custom Prompts: unlock full potential<br>
+`/dan` the famous DAN
+`/dev` unlock Developer mode
+`/math` pro at math
+`/evil` evil bot
+
 ## Credits
 
 - [FB api.](https://github.com/Schmavery/facebook-chat-api/)

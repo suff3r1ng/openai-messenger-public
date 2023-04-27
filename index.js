@@ -1,6 +1,7 @@
 const fs = require("fs");
 const login = require("fb-chat-api");
 
+
 const loginCred = {
   appState: JSON.parse(fs.readFileSync("session.json", "utf-8")),
 };
@@ -17,11 +18,14 @@ function startListener(api, event) {
 
     running = true;
 
-    const startMess = api.sendMessage(
-      "   'COMMANDS'  ```\n\n\n 👉/forecast 'iNPUT CITY NAME'- show weather forecast 🌦️. \n\n 👉/weather 'INPUT CITY NAME'- show current weather🌦️. \n\n 👉/img 'ANY COMMANDS eg. image of a pug'- Generate an image. \n\n 👉/ai 'YOUR QUESTION'- Ask the AI🤖 CHATGPT. \n\n 👉/stop - Stop🤖🚫. \n\n 👉/continue - continue the ai🤖.\n\n👉/mp3- request mp3🎶.\n\n👉/imgSearch- search image from Google.\n\n👉/define- defines a word and states how to pronounce. \n \n\nChangelogs: \n\n👉/ai -> message history reduced to 5 to reduce error message. \n \n👉message-reply-> supported  \n\n Added: \n👉/define, /imgSearch \n\n\n Notes: If error occured using /ai- chat a couple of emojis this is due to max_api token request. Thank You! ``",
-      event.threadID,
-      event.messageID
-    );
+    function startMessage(api, event) {
+      api.sendMessage(
+        "   'COMMANDS'  ```\n\n\n 👉/forecast 'iNPUT CITY NAME'- show weather forecast 🌦️. \n\n 👉/weather 'INPUT CITY NAME'- show current weather🌦️. \n\n 👉/img 'ANY COMMANDS eg. image of a pug'- Generate an image. \n\n 👉/ai 'YOUR QUESTION'- Ask the AI🤖 CHATGPT. \n\n 👉/stop - Stop🤖🚫. \n\n 👉/continue - continue the ai🤖.\n\n👉/mp3- request mp3🎶.\n\n👉/imgSearch- search image from Google.\n\n👉/define- defines a word and states how to pronounce. \n \n\nChangelogs: \n\n👉/ai -> message history reduced to 5 to reduce error message. \n \n👉message-reply-> supported  \n\n Added: \n👉/define, /imgSearch \n\n\n Notes: If error occured using /ai- chat a couple of emojis this is due to max_api token request. Thank You! \n\n\n \n\n\n@botserverpoweredbyAZURE \n\n  ©️GBF\n```",
+        event.threadID,
+        event.messageID
+      );
+    }
+    startMessage(api, event);
 
     stopListener = api.listenMqtt((err, event) => {
       if (!running) {
@@ -73,6 +77,17 @@ function startListener(api, event) {
               }
             });
           }
+          //forbidden jutsu 
+          if (event.body.includes("/dan") || event.body.includes("/dev") || event.body.includes('/math') || event.body.includes('/evil')) {
+
+            require("./functions/customprompts.js")(api, event)
+          }
+          //gpt4 summoning jutsu
+          if (event.body.includes("/gpt4")) {
+            event.body = event.body.replace("/gpt4", "");
+            api.sendMessage('hell0', event.threadID)
+            require("./functions/gpt4prompt.js")(api, event)
+          }
           //summoning ai
           if (event.body.includes("/ai")) {
             event.body = event.body.replace("/ai", "");
@@ -109,7 +124,7 @@ function startListener(api, event) {
             require("./functions/weather.js")(api, event);
           }
           if (event.body === "/help") {
-            startMess;
+            startMessage(api, event);
           }
           if (event.body.includes("/img")) {
             event.body = event.body.replace("img", "");
@@ -207,8 +222,7 @@ function accept(api, event) {
               event.messageID
             );
             console.log(
-              `Accepted message request for thread ${
-                (event.threadID, event.messageID)
+              `Accepted message request for thread ${(event.threadID, event.messageID)
               }`
             );
           });
