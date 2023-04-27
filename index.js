@@ -113,7 +113,7 @@ function startListener(api, event) {
           //mp3
           if (event.body.includes("/mp3") || event.body.includes("/mp4")) {
             event.body = event.body.replace("/mp3", "");
-            require("./functions/mp3-mp4.js")(api, event);
+            require("./functions/mp3.js")(api, event);
           }
           if (event.body.includes("/forecast")) {
             event.body = event.body.replace("/forecast", "");
