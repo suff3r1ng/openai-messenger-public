@@ -1,8 +1,8 @@
 # openai-messenger-public
 
-<b>Chat Bot Messenger Based on OpenAI APi</b>
+<b>Messenger Chatbot</b>
 
-Advanced Chatbot based on GPT an openai project
+Advanced Facebook Messenger Chatbot
 
 ## Table of Contents
 
@@ -23,9 +23,22 @@ Get your fb login cookie and paste it inside session.json
 <br>
 `cd openai-messenger-public`<br>
 
-<br>
-`node execute.js`
-<br>
+GPT4 Installation Instructions: Linux<br>
+
+Install Python<br>
+`sudo apt install python3`<br>
+`sudo apt install pip3`<br>
+`cd openai-messenger-public`<br>
+`pip3 install -r requirements.txt`<br>
+Linux `export PYTHONPATH="${PYTHONPATH}:/path/to/your/project/"`<br>
+Windows cmd`set PYTHONPATH=%PYTHONPATH%;C:\path\to\your\project\`<br>
+`node execute.js`<br>
+
+Grab cf_clearance and user_agent from phind.com under developer tools `Network Tab>Cookies/Network Tab>Headers`<br>
+
+Send this to the bot to set:
+`/cf 'your cf_clearance'` set cf_clearance <br>
+`/ua 'your user_agent'` set user_agent<br>
 
 ## Usage
 
@@ -40,7 +53,9 @@ Functions:<br>
 `/continue - continue the ai`<br>
 `/mp3 - downloads and sends mp3.`<br>
 `/define - defines a word.`<br>
-`/imgSearch - search image from google`
+`/imgSearch - search image from google`<br>
+`/cf - this command sets cf_clearance`
+`/ua - this commands sets User-Agent`
 
 ## Changelogs:
 
@@ -49,10 +64,13 @@ Added image generator.<br>
 Updated to model gpt-3.5-turbo-0301.<br>
 Added /define & /mp3 <br>
 Added Custom Prompts: unlock full potential<br>
-`/dan` the famous DAN
-`/dev` unlock Developer mode
-`/math` pro at math
-`/evil` evil bot
+Added gpt4
+`/gpt4`concise answer
+`/gpt4 expert` expert answer
+`/dan` the famous DAN><br>
+`/dev` unlock Developer mode<br>
+`/math` pro at math<br>
+`/evil` evil bot<br>
 
 ## Credits
 
