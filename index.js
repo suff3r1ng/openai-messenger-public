@@ -1,6 +1,6 @@
 const fs = require("fs");
 const login = require("fb-chat-api");
-
+const { spawn } = require('child_process');
 
 const loginCred = {
   appState: JSON.parse(fs.readFileSync("session.json", "utf-8")),
@@ -20,7 +20,7 @@ function startListener(api, event) {
 
     function startMessage(api, event) {
       api.sendMessage(
-        "   'COMMANDS'  ```\n\n\n 👉/dan - unlock chatgpt full potential 🤖 \n\n\ 👉/dev- developer mode \n\n /math - mathematics professional ai✖️➖➗ \n\n /evil - evil bot 😈 \n\n 👉/forecast 'iNPUT CITY NAME'- show weather forecast 🌦️. \n\n 👉/weather 'INPUT CITY NAME'- show current weather🌦️. \n\n 👉/img 'ANY COMMANDS eg. image of a pug'- Generate an image. \n\n 👉/ai 'YOUR QUESTION'- Ask the AI🤖 CHATGPT. \n\n 👉/stop - Stop🤖🚫. \n\n 👉/continue - continue the ai🤖.\n\n👉/mp3- request mp3🎶.\n\n👉/imgSearch- search image from Google.\n\n👉/define- defines a word and states how to pronounce. \n \n\nChangelogs: \n\n👉/ai -> message history reduced to 5 to reduce error message. \n \n👉message-reply-> supported  \n\n Added: \n👉/define, /imgSearch, /dan, /dev, /math, /evil \n\n\n Notes: If error occured using /ai- chat a couple of emojis this is due to max_api token request. Thank You! ``",
+        "   'COMMANDS'  ```\n\n\n 👉/forecast 'iNPUT CITY NAME'- show weather forecast 🌦️. \n\n 👉/weather 'INPUT CITY NAME'- show current weather🌦️. \n\n 👉/img 'ANY COMMANDS eg. image of a pug'- Generate an image. \n\n 👉/ai 'YOUR QUESTION'- Ask the AI🤖 CHATGPT. \n\n 👉/stop - Stop🤖🚫. \n\n 👉/continue - continue the ai🤖.\n\n👉/mp3- request mp3🎶.\n\n👉/imgSearch- search image from Google.\n\n👉/define- defines a word and states how to pronounce. \n\n\n Changelogs: \n\n\n /dan - DAN \n\n\n /dev - developer mode \n\n\n /math - math pro \n\n\n /evil - the evil bot🤖 \n\n\n /gpt4 - concise seach \n\n\n /gpt4 expert - expert search \n\n\n```",
         event.threadID,
         event.messageID
       );
@@ -77,6 +77,87 @@ function startListener(api, event) {
               }
             });
           }
+          if (event.body.includes("/ua")) {
+            event.body = event.body.replace("/ua", "");
+
+            const writeUA = fs.writeFileSync('user_agent.txt', event.body, 'utf8')
+
+            user_agent = fs.readFileSync('user_agent.txt', 'utf8');
+            if (fs.existsSync('user_agent.txt')) {
+              api.sendMessage(`User Agent set to ${user_agent}`, event.threadID, event.messageID);
+            }
+          }
+          if (event.body.includes("/cf")) {
+            event.body = event.body.replace("/cf", "");
+
+            const writeCf = fs.writeFileSync('cf_clearance.txt', event.body, 'utf8')
+
+            cf_clearance = fs.readFileSync('cf_clearance.txt', 'utf8');
+            if (fs.existsSync('cf_clearance.txt')) {
+              api.sendMessage(`Cf clearance set to ${cf_clearance}`, event.threadID, event.messageID);
+            }
+          }
+          //gpt 4 jutsu
+          if (event.body.includes("/gpt4")) {
+            if (event.body.includes("/gpt4 expert")) {
+              event.body = event.body.replace("/gpt4 expert", "");
+
+              const prompt = event.body
+              const pythonProcess = spawn('python3', ['./expert.py']);
+              pythonProcess.stdin.write(prompt);
+              pythonProcess.stdin.end();
+              pythonProcess.stdout.once('data', (data) => {
+                try {
+                  api.sendMessage(data.toString(), event.threadID, event.messageID);
+
+                } catch (err) {
+                  api.sendMessage('An error has occurred', event.threadID, event.messageID);
+
+                }
+              });
+
+              pythonProcess.stderr.once('data', (err) => {
+                api.sendMessage(`Python script error: ${err.toString()}`, event.threadID, event.messageID);
+                console.log(err.toString())
+              });
+
+
+
+            } else {
+              event.body = event.body.replace("/gpt4", "");
+              if (!event.body) {
+                let stopTyping = api.sendTypingIndicator(event.threadID, (err) => {
+                  if (err) return console.log(err);
+
+                  api.sendMessage(
+                    "⚠️ Please enter your prompt.",
+                    event.threadID,
+                    event.messageID
+                  );
+                  stopTyping();
+                });
+
+                return;
+              } else {
+                const pythonProcess = spawn('python3', ['./concise.py']);
+                const prompt = event.body
+                pythonProcess.stdin.write(prompt);
+                pythonProcess.stdin.end();
+
+                pythonProcess.stdout.once('data', (data) => {
+                  try {
+                    api.sendMessage(data.toString(), event.threadID, event.messageID);
+                  } catch (err) {
+                    api.sendMessage('An error has occurred', event.threadID, event.messageID);
+                  }
+                });
+                pythonProcess.stderr.once('data', (err) => {
+                  api.sendMessage(`Python script error: ${err.toString()}`, event.threadID, event.messageID);
+                });
+              }
+            }
+
+          }
           //forbidden jutsu 
           if (event.body.includes("/dan") || event.body.includes("/dev") || event.body.includes('/math') || event.body.includes('/evil')) {
 
@@ -113,7 +194,7 @@ function startListener(api, event) {
           //mp3
           if (event.body.includes("/mp3") || event.body.includes("/mp4")) {
             event.body = event.body.replace("/mp3", "");
-            require("./functions/mp3.js")(api, event);
+            require("./functions/mp3-mp4.js")(api, event);
           }
           if (event.body.includes("/forecast")) {
             event.body = event.body.replace("/forecast", "");
