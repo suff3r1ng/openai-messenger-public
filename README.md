@@ -64,13 +64,15 @@ Added image generator.<br>
 Updated to model gpt-3.5-turbo-0301.<br>
 Added /define & /mp3 <br>
 Added Custom Prompts: unlock full potential<br>
-Added gpt4
+Added gpt4<br>
+Added Internet Access<br>
 `/gpt4`concise answer
 `/gpt4 expert` expert answer
 `/dan` the famous DAN><br>
 `/dev` unlock Developer mode<br>
 `/math` pro at math<br>
 `/evil` evil bot<br>
+`/aiinternet` gpt3 with internet access<br>
 
 ## Credits
 
