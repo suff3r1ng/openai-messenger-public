@@ -14,7 +14,32 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 
 function handleRequest(api, event) {
+    async function respo(message) {
+        const response = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: message,
+            max_tokens: 3500
+        })
+        api.getThreadInfo(event.threadID, (err, info) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            // get sender info
+            const sender = info.userInfo.find((p) => p.id === event.senderID);
+            const senderName = sender.firstName;
+            api.sendMessage(
+                {
+                    body: `Hi @${senderName}! ${response.data.choices[0].message.content} \n \n About this bot, type:\n👉/help for more info`,
+                    mentions: [{ tag: `@${senderName}`, id: event.senderID }],
+                },
+                event.threadID,
+                event.messageID
+            );
 
+        })
+
+    }
     const prompt = event.body
 
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -59,32 +84,7 @@ function handleRequest(api, event) {
         })
         .catch(error => console.log(error));
 
-    async function respo(message) {
-        const response = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages: message,
-            max_tokens: 3500
-        })
-        api.getThreadInfo(event.threadID, (err, info) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            // get sender info
-            const sender = info.userInfo.find((p) => p.id === event.senderID);
-            const senderName = sender.firstName;
-            api.sendMessage(
-                {
-                    body: `Hi @${senderName}! ${response.data.choices[0].message.content} \n \n About this bot, type:\n👉/help for more info`,
-                    mentions: [{ tag: `@${senderName}`, id: event.senderID }],
-                },
-                event.threadID,
-                event.messageID
-            );
 
-        })
-
-    }
 
 
 }
